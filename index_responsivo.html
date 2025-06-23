@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Capacitância Eletrostática</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- MathJax para renderizar fórmulas matemáticas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0 20px 40px;
+      background-color: #f9f9f9;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #4CAF50;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+    nav {
+      text-align: center;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    nav button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 16px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    section {
+      margin-bottom: 50px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 10px;
+    }
+    input, button {
+      font-size: 16px;
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 400px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #resultado {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .quiz-button, .top-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .top-button {
+      margin: 60px auto 0;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      nav button {
+        width: 90%;
+        margin: 8px auto;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Capacitância Eletrostática</h1>
+  </header>
+
+  <nav>
+    <button onclick="document.getElementById('teoria').scrollIntoView()">📘 Teoria</button>
+    <button onclick="document.getElementById('calculadora').scrollIntoView()">🧮 Calculadora</button>
+    <button onclick="document.getElementById('quiz').scrollIntoView()">🧠 Quiz</button>
+  </nav>
+
+  <section id="teoria">
+    <h2>📘 Teoria</h2>
+    <p>A capacitância eletrostática mede a capacidade de um condutor armazenar carga elétrica.</p>
+    <p>As fórmulas fundamentais que usaremos neste site são:</p>
+    <ul>
+      <li><strong>Capacitância geral:</strong> \( C = \frac{Q}{V} \)</li>
+      <li><strong>Condutor esférico isolado:</strong> \( C = \frac{R}{K_0} \), com \( K_0 = 8{,}854 \times 10^{-12} \, \text{F/m} \)</li>
+    </ul>
+  </section>
+
+  <section id="calculadora">
+    <h2>🧮 Calculadora de Capacitância Esférica</h2>
+    <label for="raio">Digite o raio da esfera (em metros):</label>
+    <input type="text" id="raio" placeholder="Ex: 6.3e6">
+    <button class="quiz-button" onclick="calcularCapacitancia()">Calcular</button>
+    <div id="resultado"></div>
+  </section>
+
+  <section id="quiz">
+    <h2>🧠 Quiz (em breve)</h2>
+    <p>Teste seus conhecimentos sobre capacitância eletrostática!</p>
+    <button class="quiz-button">Ir para o Quiz</button>
+  </section>
+
+  <button class="top-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    ⬆️ Voltar ao topo
+  </button>
+
+  <script>
+    function calcularCapacitancia() {
+      const raioInput = document.getElementById("raio").value.trim().replace(",", ".");
+      const R = Number(raioInput);
+      const K0 = 8.854e-12;
+
+      if (isNaN(R) || R <= 0) {
+        document.getElementById("resultado").innerHTML = "❌ Insira um valor válido para o raio.";
+        return;
+      }
+
+      const C = R / K0;
+      const C_microF = C * 1e6;
+
+      let C_display;
+      if (C >= 1e-3 && C <= 1e3) {
+        C_display = `${C.toFixed(5)} F`;
+      } else {
+        C_display = `${C.toExponential(3)} F`;
+      }
+
+      document.getElementById("resultado").innerHTML =
+        `✅ Capacitância:<br>${C_display}<br>(${C_microF.toFixed(2)} µF)`;
+    }
+  </script>
+
+</body>
+</html>
